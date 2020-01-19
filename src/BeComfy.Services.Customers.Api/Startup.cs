@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BeComfy.Services.Customers
+namespace BeComfy.Services.Customers.Api
 {
     public class Startup
     {
@@ -36,7 +36,10 @@ namespace BeComfy.Services.Customers
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

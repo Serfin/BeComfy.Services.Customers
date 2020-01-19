@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeComfy.Services.Customers.Controllers
+namespace BeComfy.Services.Customers.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class HomeController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAction()
             => Ok("BeComfy Customers Microservice");
     }
 }

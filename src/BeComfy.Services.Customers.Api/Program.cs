@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BeComfy.Services.Customers
+namespace BeComfy.Services.Customers.Api
 {
     public class Program
     {
