@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BeComfy.Services.Customers.Core\BeComfy.Services.Customers.Core.csproj" />
+    <ProjectReference Include="..\..\..\BeComfy.Common\src\BeComfy.Common\BeComfy.Common.csproj" />
   </ItemGroup>
 
 </Project>
