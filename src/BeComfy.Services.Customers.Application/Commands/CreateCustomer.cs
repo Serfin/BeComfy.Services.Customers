@@ -23,7 +23,6 @@ namespace BeComfy.Services.Customers.Application.Commands
             Surname = surname;
             Age = age;
             Address = address;
-
         }
     }
 }

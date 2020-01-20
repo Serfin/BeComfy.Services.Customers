@@ -17,32 +17,59 @@ namespace BeComfy.Services.Customers.Core.Entities
             int age, string address)
         {
             Id = id;
-            SetValue(FirstName, firstName);
-            SetValue(SecondName, secondName);
-            SetValue(Surname, surname);
-            SetValue(Address, address);
-            SetValue(Age, age);
+            SetFirstName(firstName);
+            SetSecondName(secondName);
+            SetSurname(surname);
+            SetAddress(address);
+            SetAge(age);
             Balance = default(decimal);
         }
 
-        private void SetValue(string propertyName, string input)
+        private void SetFirstName(string firstName)
         {
-            if (string.IsNullOrEmpty(input))
-            {
-                throw new CustomerDomainValidationException(nameof(propertyName), input);
-            }
+            // COMMENTED UNTIL JWT LOGIN IS ENABLED !!!
+            // Just for convenience
+            // if (string.IsNullOrEmpty(firstName))
+            // {
+            //     throw new CustomerDomainValidationException("Customer first name cannot be null or empty");
+            // }
 
-            propertyName = input;
+            FirstName = firstName;
         }
 
-        private void SetValue(int propertyName, int input)
+        private void SetSecondName(string secondName)
         {
-            if (input < 0)
+            SecondName = secondName;
+        }
+
+        private void SetSurname(string surname)
+        {
+            if (string.IsNullOrEmpty(surname))
             {
-                throw new CustomerDomainValidationException(nameof(input), input);
+                throw new CustomerDomainValidationException("Customer surname cannot be null or empty");
             }
 
-            propertyName = input;
+            Surname = surname;
+        }
+
+        private void SetAddress(string address)
+        {
+            if (string.IsNullOrEmpty(address))
+            {
+                throw new CustomerDomainValidationException("Customer address name cannot be null or empty");
+            }
+
+            Address = address;
+        }
+
+        private void SetAge(int age)
+        {
+            if (age <= 0)
+            {
+                throw new CustomerDomainValidationException("Customer age cannot be less or equal to 0 -> Value = " + age.ToString());
+            }
+
+            Age = age;
         }
     }
 }

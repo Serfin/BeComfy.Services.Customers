@@ -1,5 +1,3 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using BeComfy.Services.Customers.Infrastructure.EFCore;
 using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -36,9 +36,9 @@ namespace BeComfy.Services.Customers.Api
             services.AddEFCoreContext<CustomersContext>();
 
             var builder = new ContainerBuilder();
-            builder.Populate(services);
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                 .AsImplementedInterfaces();
+            builder.Populate(services);
             builder.AddHandlers();
             builder.AddDispatcher();
             builder.AddRabbitMq();
