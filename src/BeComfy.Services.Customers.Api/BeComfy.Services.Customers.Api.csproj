@@ -8,4 +8,8 @@
     <ProjectReference Include="..\BeComfy.Services.Customers.Infrastructure\BeComfy.Services.Customers.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.6.2" />
+  </ItemGroup>
+
 </Project>

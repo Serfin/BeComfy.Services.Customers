@@ -1,15 +1,18 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using System.Reflection;
-using BeComfy.Common.CqrsFlow;
 using BeComfy.Common.RabbitMq;
+using BeComfy.Common.CqrsFlow;
 using BeComfy.Services.Customers.Application.Commands;
+using Microsoft.Extensions.Hosting;
+using BeComfy.Services.Customers.Infrastructure.EFCore;
+using BeComfy.Common.EFCore;
+using BeComfy.Common.Jaeger;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -27,6 +30,10 @@ namespace BeComfy.Services.Customers.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddJaeger();
+            services.AddOpenTracing();
+            services.AddEFCoreContext<CustomersContext>();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

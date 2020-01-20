@@ -5,7 +5,7 @@ namespace BeComfy.Services.Customers.Infrastructure.EFCore
 {
     public class CustomersContext : DbContext
     {
-        public DbSet<Customer> Tickets { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public CustomersContext(DbContextOptions options)
             : base(options)
