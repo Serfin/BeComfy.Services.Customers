@@ -16,7 +16,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         public Customer(Guid id, string firstName, string secondName, string surname,
             int age, string address)
         {
-            Id = id;
+            Id = id; // USE ID FROM JWT
             SetFirstName(firstName);
             SetSecondName(secondName);
             SetSurname(surname);
@@ -27,12 +27,10 @@ namespace BeComfy.Services.Customers.Core.Entities
 
         private void SetFirstName(string firstName)
         {
-            // COMMENTED UNTIL JWT LOGIN IS ENABLED !!!
-            // Just for convenience
-            // if (string.IsNullOrEmpty(firstName))
-            // {
-            //     throw new CustomerDomainValidationException("Customer first name cannot be null or empty");
-            // }
+            if (string.IsNullOrEmpty(firstName))
+            {
+                throw new CustomerDomainValidationException("Customer first name cannot be null or empty");
+            }
 
             FirstName = firstName;
         }
@@ -44,10 +42,10 @@ namespace BeComfy.Services.Customers.Core.Entities
 
         private void SetSurname(string surname)
         {
-            if (string.IsNullOrEmpty(surname))
-            {
-                throw new CustomerDomainValidationException("Customer surname cannot be null or empty");
-            }
+            // if (string.IsNullOrEmpty(surname))
+            // {
+            //     throw new CustomerDomainValidationException("Customer surname cannot be null or empty");
+            // }
 
             Surname = surname;
         }

@@ -18,9 +18,9 @@ namespace BeComfy.Services.Customers.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Customer airplane)
+        public async Task AddAsync(Customer customer)
         {
-            await _context.AddAsync(airplane);
+            await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
         }
 
@@ -34,7 +34,7 @@ namespace BeComfy.Services.Customers.Infrastructure.Repositories
         public async Task DeleteAsync(Guid id)
         {
             var customer = await GetAsync(id);
-            _context.Remove(customer);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
         }
 
