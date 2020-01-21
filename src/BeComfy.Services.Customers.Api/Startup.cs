@@ -13,6 +13,12 @@ using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using BeComfy.Common;
+using BeComfy.Common.CqrsFlow.Handlers;
+using BeComfy.Services.Customers.Application.Commands.CommandHandlers;
+using BeComfy.Services.Customers.Core.Repositories;
+using BeComfy.Services.Customers.Infrastructure.Repositories;
+using BeComfy.Common.CqrsFlow.Dispatcher;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -30,17 +36,17 @@ namespace BeComfy.Services.Customers.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<ICommandHandler<CreateCustomer>, CreateCustomerHandler>();
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+            services.AddScoped<IQueryDispatcher, QueryDispatcher>();
             
             services.AddJaeger();
             services.AddOpenTracing();
             services.AddEFCoreContext<CustomersContext>();
 
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
+            var builder = new ContainerBuilder();            
             builder.Populate(services);
-            builder.AddHandlers();
-            builder.AddDispatcher();
             builder.AddRabbitMq();
 
             Container = builder.Build();
