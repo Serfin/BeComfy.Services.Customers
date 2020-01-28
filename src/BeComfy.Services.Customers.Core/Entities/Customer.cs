@@ -13,6 +13,8 @@ namespace BeComfy.Services.Customers.Core.Entities
         public string Address { get; private set; }
         public decimal Balance { get; private set; }
 
+        // TODO : Add createdAt and updatedAt properties 
+
         public Customer(Guid id, string firstName, string secondName, string surname,
             int age, string address)
         {
@@ -68,6 +70,26 @@ namespace BeComfy.Services.Customers.Core.Entities
             }
 
             Age = age;
+        }
+
+        public void IncreaseBalance(decimal balance)
+        {
+            if (balance <= 0)
+            {
+                throw new CustomerDomainValidationException($"Cannot increase balance with value -> {balance}");
+            }
+
+            Balance += balance;
+        }
+
+        public void DecreaseBalance(decimal balance)
+        {
+            if (balance <= 0)
+            {
+                throw new CustomerDomainValidationException($"Cannot decrease balance with value -> {balance}");
+            }
+
+            Balance -= balance;
         }
     }
 }

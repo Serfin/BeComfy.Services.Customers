@@ -22,6 +22,8 @@ using BeComfy.Common.CqrsFlow.Dispatcher;
 using BeComfy.Services.Customers.Application.Queries;
 using BeComfy.Services.Customers.Application.Dto;
 using BeComfy.Services.Customers.Application.Queries.QueryHandlers;
+using BeComfy.Services.Customers.Application.Events;
+using BeComfy.Services.Customers.Application.Events.EventHandlers;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -40,6 +42,8 @@ namespace BeComfy.Services.Customers.Api
         {
             services.AddControllers();
             services.AddTransient<ICommandHandler<CreateCustomer>, CreateCustomerHandler>();
+            services.AddTransient<ICommandHandler<IncreaseCustomerBalance>, IncreaseCustomerBalanceHandler>();
+            services.AddTransient<IEventHandler<TicketBought>, TicketBoughtHandler>();
             services.AddTransient<ICustomersRepository, CustomersRepository>();
             services.AddTransient<ICommandDispatcher, CommandDispatcher>();
             services.AddTransient<IQueryDispatcher, QueryDispatcher>();
@@ -70,7 +74,9 @@ namespace BeComfy.Services.Customers.Api
             app.UseAuthorization();
 
             app.UseRabbitMq()
-                .SubscribeCommand<CreateCustomer>();
+                .SubscribeCommand<CreateCustomer>()
+                .SubscribeCommand<IncreaseCustomerBalance>()
+                .SubscribeEvent<TicketBought>();
 
             app.UseEndpoints(endpoints =>
             {
