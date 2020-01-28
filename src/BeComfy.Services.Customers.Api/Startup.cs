@@ -19,6 +19,9 @@ using BeComfy.Services.Customers.Application.Commands.CommandHandlers;
 using BeComfy.Services.Customers.Core.Repositories;
 using BeComfy.Services.Customers.Infrastructure.Repositories;
 using BeComfy.Common.CqrsFlow.Dispatcher;
+using BeComfy.Services.Customers.Application.Queries;
+using BeComfy.Services.Customers.Application.Dto;
+using BeComfy.Services.Customers.Application.Queries.QueryHandlers;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -36,10 +39,11 @@ namespace BeComfy.Services.Customers.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ICommandHandler<CreateCustomer>, CreateCustomerHandler>();
-            services.AddScoped<ICustomersRepository, CustomersRepository>();
-            services.AddScoped<ICommandDispatcher, CommandDispatcher>();
-            services.AddScoped<IQueryDispatcher, QueryDispatcher>();
+            services.AddTransient<ICommandHandler<CreateCustomer>, CreateCustomerHandler>();
+            services.AddTransient<ICustomersRepository, CustomersRepository>();
+            services.AddTransient<ICommandDispatcher, CommandDispatcher>();
+            services.AddTransient<IQueryDispatcher, QueryDispatcher>();
+            services.AddTransient<IQueryHandler<GetCustomer, CustomerDto>, GetCustomerHandler>();
             
             services.AddJaeger();
             services.AddOpenTracing();
