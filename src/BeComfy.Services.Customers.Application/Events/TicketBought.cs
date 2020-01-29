@@ -8,7 +8,7 @@ namespace BeComfy.Services.Customers.Application.Events
     [MessageNamespace("tickets")]
     public class TicketBought : IEvent
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; }
         public Guid CustomerId { get; }
         public decimal TotalPrice { get; }
 
