@@ -21,7 +21,7 @@ namespace BeComfy.Services.Customers.Application.Events.EventHandlers
 
             if (customer is null)
             {
-                throw new BeComfyException($"Customer with id: {@event.CustomerId} does not exist");
+                throw new BeComfyException("cannot_decrease_balance", $"Customer with id: {@event.CustomerId} does not exist");
             }
 
             customer.DecreaseBalance(@event.TotalPrice);

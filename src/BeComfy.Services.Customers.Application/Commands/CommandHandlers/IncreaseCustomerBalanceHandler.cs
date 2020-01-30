@@ -21,7 +21,7 @@ namespace BeComfy.Services.Customers.Application.Commands.CommandHandlers
 
             if (customer is null)
             {
-                throw new BeComfyException($"Customer with id: {command.CustomerId} does not exist");
+                throw new BeComfyException("cannot_increase_balance", $"Customer with id: {command.CustomerId} does not exist");
             }
 
             customer.IncreaseBalance(command.AmountToAdd);
