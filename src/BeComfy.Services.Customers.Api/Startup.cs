@@ -74,8 +74,10 @@ namespace BeComfy.Services.Customers.Api
             app.UseAuthorization();
 
             app.UseRabbitMq()
-                .SubscribeCommand<CreateCustomer>()
-                .SubscribeCommand<IncreaseCustomerBalance>()
+                .SubscribeCommand<CreateCustomer>(
+                    onError: (cmd, ex) => new CreateCustomerRejected(cmd.Id, ex.Code, ex.Message))
+                .SubscribeCommand<IncreaseCustomerBalance>(
+                    onError: (cmd, ex) => new IncreaseCustomerBalanceRejected(cmd.CustomerId, ex.Code, ex.Message))
                 .SubscribeEvent<TicketBought>();
 
             app.UseEndpoints(endpoints =>

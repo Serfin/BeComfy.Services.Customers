@@ -1,5 +1,5 @@
 using System;
-using BeComfy.Services.Customers.Core.Exceptions;
+using BeComfy.Common.Types.Exceptions;
 
 namespace BeComfy.Services.Customers.Core.Entities
 {
@@ -18,7 +18,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         public Customer(Guid id, string firstName, string secondName, string surname,
             int age, string address)
         {
-            Id = id; // USE ID FROM JWT
+            SetCustomerId(id);
             SetFirstName(firstName);
             SetSecondName(secondName);
             SetSurname(surname);
@@ -27,11 +27,21 @@ namespace BeComfy.Services.Customers.Core.Entities
             Balance = default(decimal);
         }
 
+        private void SetCustomerId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new BeComfyException("cannot_create_customer", $"Invalid customer id: '{id}'");
+            }
+
+            Id = id;
+        }
+
         private void SetFirstName(string firstName)
         {
             if (string.IsNullOrEmpty(firstName))
             {
-                throw new CustomerDomainValidationException("Customer first name cannot be null or empty");
+                throw new BeComfyException("cannot_create_customer", "Customer first name cannot be null or empty");
             }
 
             FirstName = firstName;
@@ -39,15 +49,18 @@ namespace BeComfy.Services.Customers.Core.Entities
 
         private void SetSecondName(string secondName)
         {
-            SecondName = secondName;
+            if (string.IsNullOrEmpty(secondName))
+            {
+                throw new BeComfyException("cannot_create_customer", "Customer second name cannot be null or empty");
+            }
         }
 
         private void SetSurname(string surname)
         {
-            // if (string.IsNullOrEmpty(surname))
-            // {
-            //     throw new CustomerDomainValidationException("Customer surname cannot be null or empty");
-            // }
+            if (surname.Length < 0)
+            {
+                throw new BeComfyException("cannot_create_customer", "Customer surname length cannot be less than 0");
+            }
 
             Surname = surname;
         }
@@ -56,7 +69,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         {
             if (string.IsNullOrEmpty(address))
             {
-                throw new CustomerDomainValidationException("Customer address name cannot be null or empty");
+                throw new BeComfyException("cannot_create_customer", "Customer address name cannot be null or empty");
             }
 
             Address = address;
@@ -66,7 +79,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         {
             if (age <= 0)
             {
-                throw new CustomerDomainValidationException("Customer age cannot be less or equal to 0 -> Value = " + age.ToString());
+                throw new BeComfyException("cannot_create_customer", "Customer age cannot be less or equal to 0 -> Value = " + age.ToString());
             }
 
             Age = age;
@@ -76,7 +89,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         {
             if (balance <= 0)
             {
-                throw new CustomerDomainValidationException($"Cannot increase balance with value -> {balance}");
+                throw new BeComfyException("cannot_create_customer", $"Cannot increase balance with value -> {balance}");
             }
 
             Balance += balance;
@@ -86,7 +99,7 @@ namespace BeComfy.Services.Customers.Core.Entities
         {
             if (balance <= 0)
             {
-                throw new CustomerDomainValidationException($"Cannot decrease balance with value -> {balance}");
+                throw new BeComfyException("cannot_create_customer", $"Cannot decrease balance with value -> {balance}");
             }
 
             Balance -= balance;
