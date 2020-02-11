@@ -24,6 +24,8 @@ using BeComfy.Services.Customers.Application.Dto;
 using BeComfy.Services.Customers.Application.Queries.QueryHandlers;
 using BeComfy.Services.Customers.Application.Events;
 using BeComfy.Services.Customers.Application.Events.EventHandlers;
+using BeComfy.Services.Customers.Core.Entities;
+using BeComfy.Common.Mongo;
 
 namespace BeComfy.Services.Customers.Api
 {
@@ -43,14 +45,16 @@ namespace BeComfy.Services.Customers.Api
             services.AddControllers();
             services.AddTransient<ICommandHandler<CreateCustomer>, CreateCustomerHandler>();
             services.AddTransient<ICommandHandler<IncreaseCustomerBalance>, IncreaseCustomerBalanceHandler>();
+            services.AddTransient<ICustomersRepository, MongoCustomersRepository>();
             services.AddTransient<IEventHandler<TicketBought>, TicketBoughtHandler>();
-            services.AddTransient<ICustomersRepository, CustomersRepository>();
             services.AddTransient<ICommandDispatcher, CommandDispatcher>();
             services.AddTransient<IQueryDispatcher, QueryDispatcher>();
             services.AddTransient<IQueryHandler<GetCustomer, CustomerDto>, GetCustomerHandler>();
             
             services.AddJaeger();
             services.AddOpenTracing();
+            services.AddMongo();
+            services.AddMongoRepository<Customer>("Customers");
             services.AddEFCoreContext<CustomersContext>();
 
             var builder = new ContainerBuilder();            

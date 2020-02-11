@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeComfy.Services.Customers.Infrastructure.Repositories
 {
-    public class CustomersRepository : ICustomersRepository
+    public class CustomersRepository// : ICustomersRepository
     {
         private readonly CustomersContext _context;
 

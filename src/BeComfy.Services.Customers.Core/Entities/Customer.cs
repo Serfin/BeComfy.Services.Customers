@@ -1,9 +1,10 @@
 using System;
+using BeComfy.Common.Mongo;
 using BeComfy.Common.Types.Exceptions;
 
 namespace BeComfy.Services.Customers.Core.Entities
 {
-    public class Customer
+    public class Customer : IEntity
     {
         public Guid Id { get; private set; }
         public string FirstName { get; private set; }
