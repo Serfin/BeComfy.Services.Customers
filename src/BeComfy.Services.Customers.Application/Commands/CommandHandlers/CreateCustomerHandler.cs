@@ -24,7 +24,7 @@ namespace BeComfy.Services.Customers.Application.Commands.CommandHandlers
                 command.Surname, command.Age, command.Address);
 
             await _customersRepository.AddAsync(customer);
-            await _busPublisher.PublishAsync(new CustomerCreated(), context);
+            await _busPublisher.PublishAsync(new CustomerCreated(command.Id), context);
         }
         
     }
