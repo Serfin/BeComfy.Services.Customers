@@ -26,6 +26,7 @@ using BeComfy.Services.Customers.Application.Events;
 using BeComfy.Services.Customers.Application.Events.EventHandlers;
 using BeComfy.Services.Customers.Core.Entities;
 using BeComfy.Common.Mongo;
+using BeComfy.Logging.Elk;
 
 namespace BeComfy.Services.Customers.Api
 {
