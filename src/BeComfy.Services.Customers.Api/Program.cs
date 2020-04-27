@@ -1,7 +1,6 @@
-using BeComfy.Logging.Elk;
+using BeComfy.Logging;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BeComfy.Services.Customers.Api
 {

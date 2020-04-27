@@ -1,11 +1,9 @@
 using System;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BeComfy.Common.RabbitMq;
-using BeComfy.Common.CqrsFlow;
 using BeComfy.Services.Customers.Application.Commands;
 using Microsoft.Extensions.Hosting;
 using BeComfy.Services.Customers.Infrastructure.EFCore;
@@ -13,7 +11,6 @@ using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BeComfy.Common;
 using BeComfy.Common.CqrsFlow.Handlers;
 using BeComfy.Services.Customers.Application.Commands.CommandHandlers;
 using BeComfy.Services.Customers.Core.Repositories;
@@ -26,7 +23,6 @@ using BeComfy.Services.Customers.Application.Events;
 using BeComfy.Services.Customers.Application.Events.EventHandlers;
 using BeComfy.Services.Customers.Core.Entities;
 using BeComfy.Common.Mongo;
-using BeComfy.Logging.Elk;
 
 namespace BeComfy.Services.Customers.Api
 {
